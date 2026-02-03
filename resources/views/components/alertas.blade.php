@@ -34,6 +34,8 @@
     {{ $slot }}
 </div>--}}
 
+
+
 {{--
 Attributes es una clase que trae cualquier caracteristtica que se ponga en este calo las alertas en el html
 lo que se hizo aca fue combinar( cib ek merge) esos nuevos atributos con unos predeterminados y concatenar la clase de alerta
