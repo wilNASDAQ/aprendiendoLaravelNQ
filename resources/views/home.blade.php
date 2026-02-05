@@ -13,9 +13,9 @@
 
         <h1> HOLA TRADER</h1>
 
-        <x-alertas title="HOLAOAOAALAAOs" type="warning">
+        <x-alerta-logica title="HOLAOAOAALAAOs">
             Opere correctamente
-        </x-alertas>
+        </x-alerta-logica>
 
         <h1>cser,cñel</h1>
 
