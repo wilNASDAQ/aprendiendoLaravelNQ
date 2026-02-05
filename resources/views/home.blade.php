@@ -13,11 +13,11 @@
 
         <h1> HOLA TRADER</h1>
 
-        <x-alerta-logica title="HOLAOAOAALAAOs">
-            Opere correctamente
+        <x-alerta-logica title="HOME" type="info">
+            ESTAS EN EL HOME PAGE
         </x-alerta-logica>
 
-        <h1>cser,cñel</h1>
+        <h1>cosas</h1>
 
     </div>
 

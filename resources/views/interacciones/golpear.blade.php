@@ -8,6 +8,13 @@
     <title>GOLPE</title>
 </head>
 <body>
-    <h1>Te golpee jajaja</h1>
+    <div class="max-w-7xl mx-auto px-4">
+
+        <x-alerta-logica title="GOLPE" type="danger">
+            TE GOLPEE JAJAJAJA
+        </x-alerta-logica>
+
+        <h1>cosas</h1>
+
 </body>
 </html>

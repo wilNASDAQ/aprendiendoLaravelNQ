@@ -10,9 +10,10 @@ use Nette\Utils\Type;
 class alertaLogica extends Component
 {
     public $estilo;
+    public $title;
 
 
-    public function __construct($type = 'success')
+    public function __construct($type = 'success', $title = '')
     {
         switch ($type) {
             case 'info':
@@ -39,6 +40,7 @@ class alertaLogica extends Component
                 $this->estilo = 'text-blue-800 bg-blue-100';
                 break;
         }
+        $this->title = $title;
     }
 
     /**

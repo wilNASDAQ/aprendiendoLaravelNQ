@@ -10,7 +10,19 @@
 </head>
 
 <body>
-    <h1> Hola {{ $nombre }} </h1>
+
+    <div class="max-w-7xl mx-auto px-4">
+
+            <h1> HOLA {{ strtoupper($nombre) }} </h1>
+
+        <x-alerta-logica title="SALUDO" type="success">
+            BIENVENIDO A LA APLICACION, {{ strtoupper($nombre) }}
+        </x-alerta-logica>
+
+        <h1>cosas</h1>
+
+    </div>
+
 </body>
 
 </html>
