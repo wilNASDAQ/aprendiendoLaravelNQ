@@ -2,9 +2,60 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class windaq extends Model
 {
     protected $table = 'usuarios';
+
+    /* En este modelo se definen los atributos de la tabla 'usuarios' y se crean mutadores para cada uno de ellos, con el fin de convertir los valores a mayúsculas antes de guardarlos en la base de datos, tambien datos escritos como correo_electronico se deben escribir correoElectronico para que el mutador funcione correctamente
+    */
+
+    protected function nombre(): Attribute
+    {
+        return Attribute::make(
+            set: function ($value) {
+                return strtoupper($value);
+            },
+        );
+    }
+
+    protected function contrasena(): Attribute
+    {
+        return Attribute::make(
+            set: function ($value) {
+                return strtoupper($value);
+            },
+        );
+    }
+
+    protected function correoElectronico(): Attribute
+    {
+        return Attribute::make(
+            set: function ($value) {
+                return strtoupper($value);
+            },
+        );
+    }
+
+    protected function razon(): Attribute
+    {
+        return Attribute::make(
+            set: function ($value) {
+                return strtoupper($value);
+            },
+        );
+    }
+
+    protected function campoNuevo(): Attribute
+    {
+        return Attribute::make(
+            set: function ($value) {
+                return strtoupper($value);
+            },
+        );
+    }
+
 }

@@ -14,5 +14,7 @@
     <p>Contrasena: {{ $windaq->contrasena }}</p>
     <p>Razon: {{ $windaq->razon }}</p>
     <p>Campo nuevo: {{ $windaq->campo_nuevo }}</p>
+    <p>Creado: {{ $windaq->created_at }}</p>
+    <p>Actualizado: {{ $windaq->updated_at }}</p>
 
 @endsection

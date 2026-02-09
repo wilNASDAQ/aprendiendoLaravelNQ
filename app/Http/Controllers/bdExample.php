@@ -9,7 +9,7 @@ class bdExample extends Controller
 
     public function mostrarBd()
     {
-        $windaq = windaq::orderBy('id', 'desc')->get();
+        $windaq = windaq::orderBy('id', 'asc')->get();
 
         return view('bd', ['windaq' => $windaq]);
 
@@ -20,15 +20,16 @@ class bdExample extends Controller
     {
         $windaq = new windaq();
 
-        $windaq->nombre = 'efcbdkjs';
-        $windaq->correo_electronico = 'y23y@gmail.com';
-        $windaq->contrasena = 'slxcvsldk';
+        $windaq->nombre = 'Vinicius';
+        $windaq->correo_electronico = 'ttqa@gmail.com';
+        $windaq->contrasena = 'realmadrid';
         $windaq->razon = 'Quiero trading';
-        $windaq->campo_nuevo = 'scnsdl';
+        $windaq->campo_nuevo = 'fifa';
 
         $windaq->save();
 
         return view('bdAgregar', ['windaq' => $windaq]);
+
     }
 }
 

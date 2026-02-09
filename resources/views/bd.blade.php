@@ -4,11 +4,7 @@
 
 @section('content')
 
-    <x-alerta-logica title="BD" type="success">
-        DATOS GUARDADOS EN LA BASE DE DATOS
-    </x-alerta-logica>
-
-    <h1 class="text-2xl font-bold text-stone-800">Datos guardados</h1>
+    <h1 class="text-2xl font-bold text-stone-800">USUARIOS DE WINDAQ</h1>
 
     @if ($windaq->isEmpty())
         <p class="mt-4 text-sm text-stone-600">No hay datos guardados.</p>
@@ -23,6 +19,9 @@
                         <th class="px-4 py-3 font-semibold">Contrasena</th>
                         <th class="px-4 py-3 font-semibold">Razon</th>
                         <th class="px-4 py-3 font-semibold">Campo nuevo</th>
+                        <th class="px-4 py-3 font-semibold">Creado</th>
+                        <th class="px-4 py-3 font-semibold">Actualizado</th>
+                        <th class="px-4 py-3 text-right font-semibold">Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-stone-100">
@@ -34,6 +33,14 @@
                             <td class="px-4 py-3">{{ $item->contrasena }}</td>
                             <td class="px-4 py-3">{{ $item->razon }}</td>
                             <td class="px-4 py-3">{{ $item->campo_nuevo }}</td>
+                            <td class="px-4 py-3">{{ $item->created_at }}</td>
+                            <td class="px-4 py-3">{{ $item->updated_at }}</td>
+                            <td class="px-4 py-3">
+                                <div class="flex items-center justify-end gap-2">
+                                    <button class="rounded bg-blue-600 px-3 py-1 text-sm text-white hover:bg-blue-700">Editar</button>
+                                    <button class="rounded bg-red-600 px-3 py-1 text-sm text-white hover:bg-red-700">Eliminar</button>
+                                </div>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

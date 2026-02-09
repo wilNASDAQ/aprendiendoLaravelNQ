@@ -12,7 +12,6 @@ class HomeController extends Controller
 {
     public function __invoke()
     {
-        $hola = 'Hola mundo';
         return view('home');
 
     }
