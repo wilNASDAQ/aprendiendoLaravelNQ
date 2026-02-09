@@ -9,9 +9,12 @@ class bdExample extends Controller
 
     public function mostrarBd()
     {
+        $hola = 'hola';
+
         $windaq = windaq::orderBy('id', 'desc')->get();
 
         return view('bd', ['windaq' => $windaq]);
+
     }
 
 
