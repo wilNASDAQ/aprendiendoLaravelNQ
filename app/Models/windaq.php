@@ -32,7 +32,7 @@ class windaq extends Model
     {
         return Attribute::make(
             set: function ($value) {
-                return strtoupper($value);
+                return ucfirst(strtolower($value));
             },
         );
     }

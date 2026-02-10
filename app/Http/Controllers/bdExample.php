@@ -15,7 +15,7 @@ class bdExample extends Controller
 
     public function mostrarBd()
     {
-        $windaq = windaq::orderBy('id', 'asc')->get();
+        $windaq = windaq::orderBy('id', 'desc')->get();
 
         return view('bd', ['windaq' => $windaq]);
 
@@ -59,5 +59,5 @@ class bdExample extends Controller
         return $windaq-> nombre .' ' . $windaq -> created_at->format('Y-m-d');
     }
 }
-/* Siempre se me olvida cambiar mis datos de git para subir los proyectos, no se ni quienes son luis243e Luis Eduardo Meza Osorio @marjosavi481 marjosavi481*/
+/*     */
 
