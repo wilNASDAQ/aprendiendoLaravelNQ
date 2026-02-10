@@ -21,7 +21,7 @@ class bdExample extends Controller
         $windaq = new windaq();
 
         $windaq->nombre = 'Vinicius';
-        $windaq->correo_electronico = 'ttqa@gmail.com';
+        $windaq->correo_electronico = 'kxjuds@gmail.com';
         $windaq->contrasena = 'realmadrid';
         $windaq->razon = 'Quiero trading';
         $windaq->campo_nuevo = 'fifa';
@@ -30,6 +30,13 @@ class bdExample extends Controller
 
         return view('bdAgregar', ['windaq' => $windaq]);
 
+    }
+
+    public function buscarDatosPorId($id)
+    {
+        $windaq = windaq::find($id);
+
+        return $windaq-> nombre .' ' . $windaq -> created_at->format('Y-m-d');
     }
 }
 

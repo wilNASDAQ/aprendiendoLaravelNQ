@@ -14,3 +14,5 @@ Route::get('/saludar/{nombre}', [InteraccionesController::class, 'saludar']);
 Route::get('/bdAgregar', [bdExample::class, 'agregarDatos']);
 
 Route::get('/bdMostrar', [bdExample::class, 'mostrarBd']);
+
+Route::get('/bdBuscar/{id}', [bdExample::class, 'buscarDatosPorId']);
