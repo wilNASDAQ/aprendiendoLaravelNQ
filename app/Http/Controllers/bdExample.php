@@ -51,6 +51,7 @@ class bdExample extends Controller
         return redirect('/bdMostrar');
     }
 
+
     public function buscarDatosPorId($id)
     {
         $windaq = windaq::find($id);
@@ -58,4 +59,5 @@ class bdExample extends Controller
         return $windaq-> nombre .' ' . $windaq -> created_at->format('Y-m-d');
     }
 }
+/* Siempre se me olvida cambiar mis datos de git para subir los proyectos, no se ni quienes son luis243e Luis Eduardo Meza Osorio @marjosavi481 marjosavi481*/
 
