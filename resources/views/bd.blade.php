@@ -6,6 +6,13 @@
 
     <h1 class="text-2xl font-bold text-stone-800">USUARIOS DE WINDAQ</h1>
 
+    <div class="pt-2">
+        <a href="{{ url('/bdFormulario') }}"
+            class="inline-flex items-center rounded-md bg-stone-800 px-4 py-2 text-sm font-semibold text-white hover:bg-stone-900">
+            VOLVER AL FORMULARIO
+        </a>
+    </div>
+
     @if ($windaq->isEmpty())
         <p class="mt-4 text-sm text-stone-600">No hay datos guardados.</p>
     @else
@@ -18,7 +25,7 @@
                         <th class="px-4 py-3 font-semibold">Email</th>
                         <th class="px-4 py-3 font-semibold">Contrasena</th>
                         <th class="px-4 py-3 font-semibold">Razon</th>
-                        <th class="px-4 py-3 font-semibold">Campo nuevo</th>
+                        <th class="px-4 py-3 font-semibold">Tipo de Trader</th>
                         <th class="px-4 py-3 font-semibold">Creado</th>
                         <th class="px-4 py-3 font-semibold">Actualizado</th>
                         <th class="px-4 py-3 text-right font-semibold">Acciones</th>

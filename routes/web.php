@@ -5,13 +5,19 @@ use App\Http\Controllers\InteraccionesController;
 use App\Http\Controllers\bdExample;
 use Illuminate\Support\Facades\Route;
 
+/* rutas del curso aprendiendo Laravel */
+
 Route::get('/', HomeController::class);
 
 Route::get('/golpear',[InteraccionesController::class, 'golpear']);
 
 Route::get('/saludar/{nombre}', [InteraccionesController::class, 'saludar']);
 
-Route::get('/bdAgregar', [bdExample::class, 'agregarDatos']);
+/* rutas del CRUD */
+
+Route::get('/bdFormulario', [bdExample::class, 'bdFormulario']);
+
+Route::post('/bdAgregar', [bdExample::class, 'guardarDatos']);
 
 Route::get('/bdMostrar', [bdExample::class, 'mostrarBd']);
 
