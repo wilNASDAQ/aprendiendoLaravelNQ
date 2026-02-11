@@ -44,7 +44,8 @@
                             <td class="px-4 py-3">{{ $item->updated_at }}</td>
                             <td class="px-4 py-3">
                                 <div class="flex items-center justify-end gap-2">
-                                    <button class="rounded bg-blue-600 px-3 py-1 text-sm text-white hover:bg-blue-700">Editar</button>
+                                    <a href="{{ url('/bdEditar/' . $item->id) }}"
+                                        class="rounded bg-blue-600 px-3 py-1 text-sm text-white hover:bg-blue-700">Editar</a>
                                     <button class="rounded bg-red-600 px-3 py-1 text-sm text-white hover:bg-red-700">Eliminar</button>
                                 </div>
                             </td>

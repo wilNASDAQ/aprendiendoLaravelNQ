@@ -21,4 +21,6 @@ Route::post('/bdAgregar', [bdExample::class, 'guardarDatos']);
 
 Route::get('/bdMostrar', [bdExample::class, 'mostrarBd']);
 
-Route::get('/bdBuscar/{id}', [bdExample::class, 'buscarDatosPorId']);
+Route::get('/bdEditar/{id}', [bdExample::class, 'editarDatos']);
+
+Route::put('/bdActualizar/{id}', [bdExample::class, 'actualizarDatos']);

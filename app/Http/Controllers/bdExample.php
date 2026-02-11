@@ -52,12 +52,50 @@ class bdExample extends Controller
     }
 
 
-    public function buscarDatosPorId($id)
+    /* El método editarDatos recibe un parámetro $id, que este se obtiene cuando le damos a ediar al usuario,
+    luego busca el registro correspondiente en la base de datos utilizando el método find del modelo windaq, 
+    y finalmente pasa ese registro a la vista 'bdEditar' para mostrar los datos en un formulario de edición */
+
+    public function editarDatos($id)
     {
         $windaq = windaq::find($id);
 
-        return $windaq-> nombre .' ' . $windaq -> created_at->format('Y-m-d');
+        return view('bdEditar', ['windaq' => $windaq]);
     }
+
+    /* El método actualizarDatos recibe una solicitud HTTP y un parámetro $id, que se obtiene del formulario de 
+    edición, luego busca el registro correspondiente en la base de datos utilizando el método find del modelo windaq,
+    si el registro no se encuentra, redirige al usuario a la ruta '/bdMostrar', si el registro se encuentra, 
+    valida los datos recibidos del formulario, actualiza las propiedades del modelo con los valores validados y 
+    guarda los cambios en la base de datos, finalmente redirige al usuario a la ruta '/bdMostrar' para mostrar los 
+    datos actualizados */
+    
+    public function actualizarDatos(Request $request, $id)
+    {
+        $windaq = windaq::find($id);
+
+        if (!$windaq) {
+            return redirect('/bdMostrar');
+        }
+
+        $validated = $request->validate([
+            'nombre' => ['required', 'string', 'max:100'],
+            'correo_electronico' => ['required', 'email', 'max:150', 'unique:usuarios,correo_electronico,' . $windaq->id],
+            'contrasena' => ['required', 'string', 'min:8', 'max:100'],
+            'razon' => ['required', 'string', 'max:255'],
+            'campo_nuevo' => ['required', 'string', 'max:100'],
+        ]);
+
+        $windaq->nombre = $validated['nombre'];
+        $windaq->correo_electronico = $validated['correo_electronico'];
+        $windaq->contrasena = $validated['contrasena'];
+        $windaq->razon = $validated['razon'];
+        $windaq->campo_nuevo = $validated['campo_nuevo'];
+        $windaq->save();
+
+        return redirect('/bdMostrar');
+    }
+
 }
 /*     */
 

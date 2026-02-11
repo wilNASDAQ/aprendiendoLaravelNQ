@@ -37,15 +37,6 @@ class windaq extends Model
         );
     }
 
-    protected function contrasena(): Attribute
-    {
-        return Attribute::make(
-            set: function ($value) {
-                return strtoupper($value);
-            },
-        );
-    }
-
     protected function correoElectronico(): Attribute
     {
         return Attribute::make(
@@ -59,7 +50,7 @@ class windaq extends Model
     {
         return Attribute::make(
             set: function ($value) {
-                return strtoupper($value);
+                return ucfirst(strtolower($value));
             },
         );
     }
@@ -68,7 +59,7 @@ class windaq extends Model
     {
         return Attribute::make(
             set: function ($value) {
-                return strtoupper($value);
+                return ucfirst(strtolower($value));
             },
         );
     }
