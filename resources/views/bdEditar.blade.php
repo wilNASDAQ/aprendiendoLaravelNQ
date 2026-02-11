@@ -12,6 +12,17 @@
             @csrf
             @method('PUT')
             
+            @if ($errors->any())
+                <div class="rounded-md bg-red-50 border border-red-200 p-4">
+                    <p class="text-sm font-semibold text-red-800">ERROR:</p>
+                    <ul class="mt-2 list-disc list-inside text-sm text-red-700">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <div>
                 <label class="text-sm font-medium text-stone-700" for="nombre">Conozcámonos, ¿cómo te llamas trader?
                 </label>
