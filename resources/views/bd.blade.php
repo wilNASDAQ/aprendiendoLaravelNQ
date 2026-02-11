@@ -46,7 +46,14 @@
                                 <div class="flex items-center justify-end gap-2">
                                     <a href="{{ url('/bdEditar/' . $item->id) }}"
                                         class="rounded bg-blue-600 px-3 py-1 text-sm text-white hover:bg-blue-700">Editar</a>
-                                    <button class="rounded bg-red-600 px-3 py-1 text-sm text-white hover:bg-red-700">Eliminar</button>
+
+                                    <form action="{{ url('/bdEliminar/' . $item->id) }}" method="POST"
+                                        onsubmit="return confirm('¿Estás seguro de que deseas eliminar este registro?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button
+                                            class="rounded bg-red-600 px-3 py-1 text-sm text-white hover:bg-red-700">Eliminar</button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>

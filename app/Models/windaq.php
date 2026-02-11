@@ -10,6 +10,18 @@ class windaq extends Model
 {
     protected $table = 'usuarios';
 
+    protected $fillable = [
+
+        'nombre', 
+        'correo_electronico',
+        'contrasena',
+        'razon',
+        'campo_nuevo'
+
+    ];
+
+
+
     /* aca podemos modificar el atributo 'publicado', por mas que lo hayamos creado como un timestamp, al agregarlo a la 
     base de datos esta misma la trata como un string, por lo que al agregarlo a la funcion casts, le decimos a laravel 
     que lo trate como un datetime, y asi poder usar las funciones de Carbon para mostrarlo de diferentes 
@@ -18,7 +30,6 @@ class windaq extends Model
     protected function casts():array
     {
         return [
-            'publicado' => 'datetime',
             'created_at' => 'datetime',
         ];
     }

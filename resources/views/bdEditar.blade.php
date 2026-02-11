@@ -8,7 +8,7 @@
         <h1 class="text-2xl font-semibold text-stone-800">Actualiza tu registro</h1>
         <p class="mt-2 text-sm text-stone-600">Revisa y guarda los cambios.</p>
 
-        <form action="{{ url('/bdActualizar/' . $windaq->id) }}" method="POST" class="mt-6 grid gap-4">
+        <form action="/bdActualizar/{{ $windaq->id }}" method="POST" class="mt-6 grid gap-4">
             @csrf
             @method('PUT')
             

@@ -52,32 +52,21 @@ class bdExample extends Controller
     }
 
 
-    /* El método editarDatos recibe un parámetro $id, que este se obtiene cuando le damos a ediar al usuario,
+    /* El método editarDatos recibe un parámetro $windaq osea un modelo, que este se obtiene cuando le damos a ediar al usuario,
     luego busca el registro correspondiente en la base de datos utilizando el método find del modelo windaq, 
     y finalmente pasa ese registro a la vista 'bdEditar' para mostrar los datos en un formulario de edición */
 
-    public function editarDatos($id)
+    public function editarDatos(windaq $windaq)
     {
-        $windaq = windaq::find($id);
-
-        return view('bdEditar', ['windaq' => $windaq]);
+        return view('bdEditar',compact('windaq'));
     }
 
-    /* El método actualizarDatos recibe una solicitud HTTP y un parámetro $id, que se obtiene del formulario de 
-    edición, luego busca el registro correspondiente en la base de datos utilizando el método find del modelo windaq,
-    si el registro no se encuentra, redirige al usuario a la ruta '/bdMostrar', si el registro se encuentra, 
-    valida los datos recibidos del formulario, actualiza las propiedades del modelo con los valores validados y 
-    guarda los cambios en la base de datos, finalmente redirige al usuario a la ruta '/bdMostrar' para mostrar los 
-    datos actualizados */
+    /* El método actualizarDatos recibe una solicitud HTTP y un parámetro windaq osea un modelo, que se obtiene del formulario de 
+    edición,valida los datos recibidos del formulario, y con el metodo update mete los datos validados en el modelo y actualiza la bd, finalmente redirige al usuario a la ruta '/bdMostrar' para mostrar los datos actualizados */
     
-    public function actualizarDatos(Request $request, $id)
+    public function actualizarDatos(Request $request,windaq $windaq)
     {
-        $windaq = windaq::find($id);
-
-        if (!$windaq) {
-            return redirect('/bdMostrar');
-        }
-
+        
         $validated = $request->validate([
             'nombre' => ['required', 'string', 'max:100'],
             'correo_electronico' => ['required', 'email', 'max:150', 'unique:usuarios,correo_electronico,' . $windaq->id],
@@ -86,12 +75,14 @@ class bdExample extends Controller
             'campo_nuevo' => ['required', 'string', 'max:100'],
         ]);
 
-        $windaq->nombre = $validated['nombre'];
-        $windaq->correo_electronico = $validated['correo_electronico'];
-        $windaq->contrasena = $validated['contrasena'];
-        $windaq->razon = $validated['razon'];
-        $windaq->campo_nuevo = $validated['campo_nuevo'];
-        $windaq->save();
+        $windaq->update($validated);
+
+        return redirect('/bdMostrar');
+    }
+
+    public function eliminarDatos(windaq $windaq)
+    {
+        $windaq->delete();
 
         return redirect('/bdMostrar');
     }
