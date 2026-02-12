@@ -68,7 +68,8 @@ npm run dev
 ```
 
 ## Rutas principales
-
+- La aplicación comienza desde http://ip + puerto/bdFormulario. La ruta `/` es una ruta de práctica y no es funcional.
+-
 - `/bdFormulario` Formulario para crear usuarios
 - `/bdMostrar` Listado con paginacion
 - `/bdEditar/{windaq}` Editar usuario
