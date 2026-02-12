@@ -61,6 +61,10 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="mt-4 bg-stone-100 p-2 rounded-lg">
+            {{ $windaq->links() }}
+        </div>
     @endif
 
 @endsection

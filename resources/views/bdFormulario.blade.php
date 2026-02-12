@@ -5,7 +5,7 @@
 @section('content')
 
     <section class="my-10 max-w-2xl rounded-lg border border-stone-200 bg-white p-6 shadow-sm">
-        <h1 class="text-2xl font-semibold text-stone-800">Haz que tu dinero deje de estar sentado sin hacer nada</h1>
+        <h1 class="text-2xl font-semibold text-stone-800">Porque tu dinero merece mas que estar acostado en un colchon</h1>
         <p class="mt-2 text-sm text-stone-600">Primero lo primero </p>
 
         <form action="{{ url('/bdAgregar') }}" method="POST" class="mt-6 grid gap-4">

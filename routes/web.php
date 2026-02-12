@@ -25,4 +25,7 @@ Route::get('/bdEditar/{windaq}', [bdExample::class, 'editarDatos']);
 
 Route::put('/bdActualizar/{windaq}', [bdExample::class, 'actualizarDatos']);
 
-Route::delete('/bdEliminar/{windaq}', [bdExample::class, 'eliminarDatos']);      
+Route::delete('/bdEliminar/{windaq}', [bdExample::class, 'eliminarDatos']);
+
+Route::get('/ttt/{cantidad?}', [bdExample::class, 'crearDatosPrueba']);
+

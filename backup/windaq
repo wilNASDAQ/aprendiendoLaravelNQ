@@ -1,0 +1,736 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 16.9
+-- Dumped by pg_dump version 16.9
+
+-- Started on 2026-02-12 16:08:51
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 221 (class 1259 OID 16800)
+-- Name: cache; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.cache (
+    key character varying(255) NOT NULL,
+    value text NOT NULL,
+    expiration integer NOT NULL
+);
+
+
+ALTER TABLE public.cache OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 16808)
+-- Name: cache_locks; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.cache_locks (
+    key character varying(255) NOT NULL,
+    owner character varying(255) NOT NULL,
+    expiration integer NOT NULL
+);
+
+
+ALTER TABLE public.cache_locks OWNER TO postgres;
+
+--
+-- TOC entry 227 (class 1259 OID 16834)
+-- Name: failed_jobs; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.failed_jobs (
+    id bigint NOT NULL,
+    uuid character varying(255) NOT NULL,
+    connection text NOT NULL,
+    queue text NOT NULL,
+    payload text NOT NULL,
+    exception text NOT NULL,
+    failed_at timestamp(0) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+ALTER TABLE public.failed_jobs OWNER TO postgres;
+
+--
+-- TOC entry 226 (class 1259 OID 16833)
+-- Name: failed_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.failed_jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.failed_jobs_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4975 (class 0 OID 0)
+-- Dependencies: 226
+-- Name: failed_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.failed_jobs_id_seq OWNED BY public.failed_jobs.id;
+
+
+--
+-- TOC entry 225 (class 1259 OID 16826)
+-- Name: job_batches; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.job_batches (
+    id character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    total_jobs integer NOT NULL,
+    pending_jobs integer NOT NULL,
+    failed_jobs integer NOT NULL,
+    failed_job_ids text NOT NULL,
+    options text,
+    cancelled_at integer,
+    created_at integer NOT NULL,
+    finished_at integer
+);
+
+
+ALTER TABLE public.job_batches OWNER TO postgres;
+
+--
+-- TOC entry 224 (class 1259 OID 16817)
+-- Name: jobs; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.jobs (
+    id bigint NOT NULL,
+    queue character varying(255) NOT NULL,
+    payload text NOT NULL,
+    attempts smallint NOT NULL,
+    reserved_at integer,
+    available_at integer NOT NULL,
+    created_at integer NOT NULL
+);
+
+
+ALTER TABLE public.jobs OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 16816)
+-- Name: jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.jobs_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4976 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.jobs_id_seq OWNED BY public.jobs.id;
+
+
+--
+-- TOC entry 216 (class 1259 OID 16767)
+-- Name: migrations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.migrations (
+    id integer NOT NULL,
+    migration character varying(255) NOT NULL,
+    batch integer NOT NULL
+);
+
+
+ALTER TABLE public.migrations OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 16766)
+-- Name: migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.migrations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.migrations_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4977 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.migrations_id_seq OWNED BY public.migrations.id;
+
+
+--
+-- TOC entry 219 (class 1259 OID 16784)
+-- Name: password_reset_tokens; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.password_reset_tokens (
+    email character varying(255) NOT NULL,
+    token character varying(255) NOT NULL,
+    created_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.password_reset_tokens OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 16791)
+-- Name: sessions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.sessions (
+    id character varying(255) NOT NULL,
+    user_id bigint,
+    ip_address character varying(45),
+    user_agent text,
+    payload text NOT NULL,
+    last_activity integer NOT NULL
+);
+
+
+ALTER TABLE public.sessions OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 16774)
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    id bigint NOT NULL,
+    name character varying(255) NOT NULL,
+    email character varying(255) NOT NULL,
+    email_verified_at timestamp(0) without time zone,
+    password character varying(255) NOT NULL,
+    remember_token character varying(100),
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 16773)
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.users_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4978 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- TOC entry 229 (class 1259 OID 16846)
+-- Name: usuarios; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.usuarios (
+    id bigint NOT NULL,
+    nombre character varying(255) NOT NULL,
+    correo_electronico character varying(255) NOT NULL,
+    contrasena character varying(255) NOT NULL,
+    razon text NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone,
+    campo_nuevo character varying(255),
+    publicado timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.usuarios OWNER TO postgres;
+
+--
+-- TOC entry 228 (class 1259 OID 16845)
+-- Name: usuarios_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.usuarios_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.usuarios_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4979 (class 0 OID 0)
+-- Dependencies: 228
+-- Name: usuarios_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.usuarios_id_seq OWNED BY public.usuarios.id;
+
+
+--
+-- TOC entry 4778 (class 2604 OID 16837)
+-- Name: failed_jobs id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.failed_jobs ALTER COLUMN id SET DEFAULT nextval('public.failed_jobs_id_seq'::regclass);
+
+
+--
+-- TOC entry 4777 (class 2604 OID 16820)
+-- Name: jobs id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.jobs ALTER COLUMN id SET DEFAULT nextval('public.jobs_id_seq'::regclass);
+
+
+--
+-- TOC entry 4775 (class 2604 OID 16770)
+-- Name: migrations id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.migrations ALTER COLUMN id SET DEFAULT nextval('public.migrations_id_seq'::regclass);
+
+
+--
+-- TOC entry 4776 (class 2604 OID 16777)
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- TOC entry 4780 (class 2604 OID 16849)
+-- Name: usuarios id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.usuarios ALTER COLUMN id SET DEFAULT nextval('public.usuarios_id_seq'::regclass);
+
+
+--
+-- TOC entry 4961 (class 0 OID 16800)
+-- Dependencies: 221
+-- Data for Name: cache; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.cache (key, value, expiration) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4962 (class 0 OID 16808)
+-- Dependencies: 222
+-- Data for Name: cache_locks; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.cache_locks (key, owner, expiration) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4967 (class 0 OID 16834)
+-- Dependencies: 227
+-- Data for Name: failed_jobs; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.failed_jobs (id, uuid, connection, queue, payload, exception, failed_at) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4965 (class 0 OID 16826)
+-- Dependencies: 225
+-- Data for Name: job_batches; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.job_batches (id, name, total_jobs, pending_jobs, failed_jobs, failed_job_ids, options, cancelled_at, created_at, finished_at) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4964 (class 0 OID 16817)
+-- Dependencies: 224
+-- Data for Name: jobs; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.jobs (id, queue, payload, attempts, reserved_at, available_at, created_at) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4956 (class 0 OID 16767)
+-- Dependencies: 216
+-- Data for Name: migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.migrations (id, migration, batch) FROM stdin;
+1	0001_01_01_000000_create_users_table	1
+2	0001_01_01_000001_create_cache_table	1
+3	0001_01_01_000002_create_jobs_table	1
+4	2026_02_06_055650_create_usuarios_table	1
+5	2026_02_06_063158_add_campo_nuevo_to_usuarios_table	1
+6	2026_02_10_041306_add_publicado_to_usuarios	1
+\.
+
+
+--
+-- TOC entry 4959 (class 0 OID 16784)
+-- Dependencies: 219
+-- Data for Name: password_reset_tokens; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.password_reset_tokens (email, token, created_at) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4960 (class 0 OID 16791)
+-- Dependencies: 220
+-- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sessions (id, user_id, ip_address, user_agent, payload, last_activity) FROM stdin;
+jifK6JWeAj2Mx4bOSUOuT62X2SsJpD7RtXD5Oof5	\N	127.0.0.1	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36	YTozOntzOjY6Il90b2tlbiI7czo0MDoiSVB4azJWbW9DMFFObHN1RkJrWG5mVWFpaURiTEVPQXA3Tlo2YzVaNiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9iZE1vc3RyYXIiO3M6NToicm91dGUiO047fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1770840855
+wetek3dtgB5pp7VfsInKySwyQByGtCabZjBAUdCg	\N	127.0.0.1	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36	YTozOntzOjY6Il90b2tlbiI7czo0MDoiODBnRnZ0b3RQUU0wNFhaOW5mWU1ld1BFR2tpbFkwRmdpMlhDcW1xMiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mzg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9iZE1vc3RyYXI/cGFnZT0yIjtzOjU6InJvdXRlIjtOO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1770930457
+\.
+
+
+--
+-- TOC entry 4958 (class 0 OID 16774)
+-- Dependencies: 218
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users (id, name, email, email_verified_at, password, remember_token, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4969 (class 0 OID 16846)
+-- Dependencies: 229
+-- Data for Name: usuarios; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.usuarios (id, nombre, correo_electronico, contrasena, razon, created_at, updated_at, campo_nuevo, publicado) FROM stdin;
+5	Wilmixmer	WILMIXMER@GMAIL.COM	rydyjdgfjhftgj	Ser el primer millonario de mi familia.	2026-02-12 18:26:18	2026-02-12 20:12:59	Moderado	\N
+6	Sdfgsdfg	GSDFGSDGSDFG@FDGFD	fhdfhdfh	Hdfhdfhdfhd	2026-02-12 20:14:55	2026-02-12 20:14:55	Conservador	\N
+7	Alicia arribas tercero	ANGEL.CAMPOS@EXAMPLE.COM	n,n]%L~3	Sit doloribus possimus labore ut odit autem atque.	2026-02-12 20:24:49	2026-02-12 20:24:49	Rerum	\N
+8	Ing. nil carrillo tercero	JOSEFA55@EXAMPLE.NET	<_wif,:+j	Corrupti ut consequatur et sed commodi non asperiores cum.	2026-02-12 20:24:49	2026-02-12 20:24:49	Ut	\N
+9	Marcos montañez	OLIVER.MARIO@EXAMPLE.ORG	/,m[jKkY_G@o	Iure quos ipsa a quas dolorem autem.	2026-02-12 20:24:49	2026-02-12 20:24:49	Nemo	\N
+10	Srta. lara blázquez	PEDRO.SALINAS@EXAMPLE.NET	RcBg_,:gA*_,-	Exercitationem sed fugiat veniam sed dolorem.	2026-02-12 20:25:49	2026-02-12 20:25:49	Sint	\N
+11	Dr. antonio véliz	FRANCISCO42@EXAMPLE.ORG	=yel)_@4QM\\o	Quaerat nostrum molestiae sunt nobis assumenda quos ut.	2026-02-12 20:25:49	2026-02-12 20:25:49	Tenetur	\N
+12	Cristina roybal	XDELACRUZ@EXAMPLE.NET	xK#B}k/gS)	Provident dolores ipsa deleniti omnis occaecati iusto eos deserunt.	2026-02-12 20:25:49	2026-02-12 20:25:49	Eius	\N
+13	Elsa delrío	QUINTANA.ALEXIA@EXAMPLE.COM	gUJ%Uk-G_xC6$	Qui animi dolorem aut et.	2026-02-12 20:25:49	2026-02-12 20:25:49	Veniam	\N
+14	Margarita cruz segundo	VICTOR.CUESTA@EXAMPLE.ORG	,;7qx}QI\\	Aut et placeat sunt ea odit.	2026-02-12 20:25:49	2026-02-12 20:25:49	Consequuntur	\N
+15	Álvaro quintana	QJIMENEZ@EXAMPLE.NET	kz7wR/{q	Qui cum porro reprehenderit sed cumque eos veritatis.	2026-02-12 20:25:49	2026-02-12 20:25:49	Culpa	\N
+16	Lic. miriam orta	AROBLES@EXAMPLE.NET	c#|6CK>n	Aut voluptate et suscipit aut culpa.	2026-02-12 20:25:49	2026-02-12 20:25:49	Ex	\N
+17	Dr. gabriela marco segundo	BSANZ@EXAMPLE.NET	T8#Ym06t`3uCNS$	Sit et ut consequatur sit saepe.	2026-02-12 20:25:49	2026-02-12 20:25:49	Ducimus	\N
+18	Lic. amparo delgado	UMENCHACA@EXAMPLE.NET	**h0=ik5`!Q$u^	Maiores aut accusamus incidunt sunt sint consequatur in culpa.	2026-02-12 20:25:49	2026-02-12 20:25:49	Saepe	\N
+19	Helena roldán	BLASCO.BEATRIZ@EXAMPLE.NET	{aRZp|]0K_J	Commodi sint beatae qui ipsa beatae sapiente.	2026-02-12 20:25:49	2026-02-12 20:25:49	In	\N
+20	Ing. nerea núñez tercero	ALEX.SAENZ@EXAMPLE.ORG	~Qy}+b%u\\<D??u!3	Suscipit sunt sunt doloribus quam et qui.	2026-02-12 20:53:19	2026-02-12 20:53:19	Possimus	\N
+21	Lic. ariadna esteve	DMARTIN@EXAMPLE.COM	`;=~ri!sezi$\\	Velit eaque qui dolores doloribus.	2026-02-12 20:53:19	2026-02-12 20:53:19	Quo	\N
+22	Nil barajas tercero	ADRIANA93@EXAMPLE.COM	ojhi_Wl(L	Quo voluptates magnam est accusamus et facere.	2026-02-12 20:53:19	2026-02-12 20:53:19	Facere	\N
+23	Zoe linares	ICARBAJAL@EXAMPLE.NET	ev]C=IHmSX^	Autem quaerat et necessitatibus doloribus ipsa et.	2026-02-12 20:53:19	2026-02-12 20:53:19	Tenetur	\N
+24	Luna cazares	BPACHECO@EXAMPLE.COM	r~;9Y<.`|]6d0r	Officia temporibus et ipsum quam.	2026-02-12 20:53:19	2026-02-12 20:53:19	Ea	\N
+25	Raúl candelaria	LSALINAS@EXAMPLE.NET	Ci5jjp~>Ny-0|	Doloribus a sequi atque debitis impedit fugiat vel.	2026-02-12 20:53:19	2026-02-12 20:53:19	Exercitationem	\N
+26	Ainara ferrer segundo	CARRION.SAUL@EXAMPLE.NET	(@L8"]}T#c`WUn	Vero tempore nemo repellat qui.	2026-02-12 20:53:19	2026-02-12 20:53:19	A	\N
+27	Dr. zoe maya tercero	ARROYO.NOELIA@EXAMPLE.NET	K5D_aL]dqy|(#	Ullam laborum voluptatum amet.	2026-02-12 20:53:19	2026-02-12 20:53:19	Exercitationem	\N
+28	Lic. omar sánchez	MARIADOLORES.FONSECA@EXAMPLE.ORG	U*!qPkke_({!	Eveniet iure molestiae blanditiis facilis omnis.	2026-02-12 20:53:19	2026-02-12 20:53:19	Velit	\N
+29	Esther leyva	ZOE.RIVAS@EXAMPLE.NET	t[dB-`!s+	Pariatur est adipisci omnis impedit.	2026-02-12 20:53:19	2026-02-12 20:53:19	Sed	\N
+30	Berta pizarro	ABRIL52@EXAMPLE.NET	#;,Z/%RFvZmLZlM	Sed facilis officiis sequi.	2026-02-12 20:53:23	2026-02-12 20:53:23	Illo	\N
+31	Jaime nazario	ROSALES.LUCIA@EXAMPLE.ORG	:|p1PlV+vz;I^\\@o	Voluptates ut praesentium ut omnis nam quia est.	2026-02-12 20:53:23	2026-02-12 20:53:23	Aut	\N
+32	Oriol vela tercero	TORREZ.JOSEFA@EXAMPLE.ORG	NdwlumA1B!(U_M	Pariatur voluptatem exercitationem rerum ipsum pariatur molestiae facilis.	2026-02-12 20:53:23	2026-02-12 20:53:23	Velit	\N
+33	Yolanda concepción hijo	CUESTA.ALMA@EXAMPLE.ORG	EHQ=d~]B	Quis et optio enim quibusdam rerum sit.	2026-02-12 20:53:23	2026-02-12 20:53:23	Quis	\N
+34	Lic. eric colunga	MALAK80@EXAMPLE.COM	l4ZP|Jb7w[3&)7~d	Dolores iure rerum consequuntur excepturi.	2026-02-12 20:53:23	2026-02-12 20:53:23	Necessitatibus	\N
+35	Ing. unai pineda hijo	CARMONA.NOELIA@EXAMPLE.ORG	o?*imeUo<	Voluptatum sit molestias possimus corrupti ut harum doloribus.	2026-02-12 20:53:23	2026-02-12 20:53:23	Blanditiis	\N
+36	Fátima carvajal	VIGIL.SARA@EXAMPLE.NET	Eaz|hmbZIq$0f	Accusamus omnis saepe distinctio voluptatum accusantium nihil quasi.	2026-02-12 20:53:23	2026-02-12 20:53:23	Voluptas	\N
+37	Natalia limón segundo	MERAZ.JAVIER@EXAMPLE.ORG	1yr$c>yiD08wvmE3	Voluptatem hic odit molestiae magni voluptatum.	2026-02-12 20:53:23	2026-02-12 20:53:23	Quibusdam	\N
+38	Eva irizarry	PAULA99@EXAMPLE.COM	n3Y-dRs0)je.-S*	Deserunt aut laboriosam repellat.	2026-02-12 20:53:23	2026-02-12 20:53:23	Consectetur	\N
+39	Sofía moreno	ADRIAN.ALCALA@EXAMPLE.NET	w`L_tqAD>$=(7#	Iusto quis beatae aliquid explicabo consequatur.	2026-02-12 20:53:23	2026-02-12 20:53:23	Aspernatur	\N
+40	Carlota reina	MUNGUIA.MARCO@EXAMPLE.ORG	uolpTRPPfT	Officia facilis aperiam debitis.	2026-02-12 20:53:26	2026-02-12 20:53:26	Aspernatur	\N
+41	Jordi zayas	SFLORES@EXAMPLE.NET	Xr}]YHAJc0;:8t	Officiis error autem quia.	2026-02-12 20:53:26	2026-02-12 20:53:26	Et	\N
+42	Martín calero	ALEIX41@EXAMPLE.COM	El"{ir`5Yh\\O"[j	Molestiae voluptatem qui voluptas voluptatem sed voluptas esse.	2026-02-12 20:53:26	2026-02-12 20:53:26	Odit	\N
+43	Úrsula barrera tercero	MPAGAN@EXAMPLE.ORG	0WfFVihz]H_#n,+	Soluta aliquam quisquam quisquam animi unde rerum.	2026-02-12 20:53:26	2026-02-12 20:53:26	Explicabo	\N
+44	Yaiza domínguez	ORAEL@EXAMPLE.ORG	zf2;^o6q/9[8*zJ	Quis minima aperiam dolorem aut.	2026-02-12 20:53:26	2026-02-12 20:53:26	Ut	\N
+45	Sra. rosa clemente	NLUIS@EXAMPLE.COM	QYHy}q=p~	Et ut consequatur doloremque incidunt eos.	2026-02-12 20:53:26	2026-02-12 20:53:26	Possimus	\N
+46	Jan luque segundo	CABELLO.PAULA@EXAMPLE.COM	p>c%-lA[/@]	Rerum minima eius est quo commodi expedita distinctio.	2026-02-12 20:53:26	2026-02-12 20:53:26	Explicabo	\N
+47	Pablo tejada	ESPINOSA.LEIRE@EXAMPLE.NET	3iPNZ(_{	Ut ipsam quia recusandae dignissimos modi.	2026-02-12 20:53:26	2026-02-12 20:53:26	Officiis	\N
+48	Ángeles girón hijo	EMAYA@EXAMPLE.NET	d36b:WnAFH	Quia fugit dolorem ipsa consectetur.	2026-02-12 20:53:26	2026-02-12 20:53:26	Illum	\N
+49	Sr. omar tijerina	IKER.PERES@EXAMPLE.ORG	nLCFfTc{A	Illo facilis pariatur sed praesentium corrupti sed assumenda.	2026-02-12 20:53:26	2026-02-12 20:53:26	Ratione	\N
+50	María carmen zarate hijo	OGONZALEZ@EXAMPLE.NET	N6p%/RXAr	Inventore ut quo ut quia ut praesentium et.	2026-02-12 20:53:29	2026-02-12 20:53:29	Ut	\N
+51	Miguel tello	JORGE54@EXAMPLE.ORG	S;)U1<v6t@YO'	Aut nulla molestias dolorem.	2026-02-12 20:53:29	2026-02-12 20:53:29	Dolorem	\N
+52	Dña fátima bonilla segundo	ALEJANDRO93@EXAMPLE.ORG	`U,<&]9='&U	Enim impedit maxime tempore aliquid.	2026-02-12 20:53:29	2026-02-12 20:53:29	Ab	\N
+53	Carla madrid	LRASCON@EXAMPLE.COM	}48M2I}]\\\\}qLN@\\	Expedita nisi consequatur laudantium et et.	2026-02-12 20:53:29	2026-02-12 20:53:29	Quia	\N
+54	Srta. yaiza estévez	JAVIER21@EXAMPLE.COM	1n3ztrn3|-	Tempore enim ipsum quas sunt similique neque et quae.	2026-02-12 20:53:29	2026-02-12 20:53:29	Pariatur	\N
+55	Srta. pau pizarro	ORTEGA.ALBA@EXAMPLE.ORG	],WLE^+`	Iste nesciunt minima recusandae ad.	2026-02-12 20:53:29	2026-02-12 20:53:29	Eum	\N
+56	Lic. adrián fajardo	CNAVA@EXAMPLE.COM	+B2S_szx8=&H@_Q@	Qui atque aperiam optio culpa in veniam.	2026-02-12 20:53:29	2026-02-12 20:53:29	Et	\N
+57	Naiara tijerina	NBARRAGAN@EXAMPLE.ORG	GR%w$Y%!JV!WM	Minima veniam eveniet qui necessitatibus voluptatibus.	2026-02-12 20:53:29	2026-02-12 20:53:29	Dolor	\N
+58	Sr. josé manuel alcala	BACA.DIEGO@EXAMPLE.NET	QH&jxO0*xf2r/k	Ut eaque et quidem delectus ea sed maxime.	2026-02-12 20:53:29	2026-02-12 20:53:29	Quo	\N
+59	D. francisco javier ordoñez tercero	MIGUEL.MARIN@EXAMPLE.COM	{+BV,M>5on	Inventore harum natus corrupti dolor molestias possimus earum.	2026-02-12 20:53:29	2026-02-12 20:53:29	Impedit	\N
+60	Paula	VDSVSD@IJKNFVISZD	vdsfbgvsdvgbsdgb	Hola	2026-02-12 21:00:15	2026-02-12 21:00:33	Moderado	\N
+61	Cristian sola tercero	PCARRERO@EXAMPLE.COM	$W8g>oLxPbAJ	Sint illo culpa ipsam quod exercitationem minus incidunt molestiae.	2026-02-12 21:01:41	2026-02-12 21:01:41	Laborum	\N
+62	Dr. laura escudero	LEO.RENDON@EXAMPLE.NET	5ei1iBk>	Ut vero quia animi animi quidem modi.	2026-02-12 21:01:41	2026-02-12 21:01:41	Non	\N
+63	Francisco pascual	ANGELES.SERRA@EXAMPLE.NET	<D9NT8lhz?0	Vel velit consectetur quos eos ut vero accusamus.	2026-02-12 21:01:41	2026-02-12 21:01:41	Illum	\N
+64	Gerard manzanares	BRUNO06@EXAMPLE.NET	w@4V+5k!5`#aVD	Veniam distinctio culpa inventore minima doloribus maiores.	2026-02-12 21:01:41	2026-02-12 21:01:41	Sapiente	\N
+65	Enrique salinas	RIERA.PATRICIA@EXAMPLE.ORG	?>OJo5mkkv	Earum corporis reiciendis dolores ratione et enim eos rerum.	2026-02-12 21:01:41	2026-02-12 21:01:41	Amet	\N
+66	Encarnación correa	CARMEN.ALMANZA@EXAMPLE.ORG	t$o{$ajl\\SU?O	Et repellendus amet harum sit corporis minus.	2026-02-12 21:01:41	2026-02-12 21:01:41	Sed	\N
+67	Sr. david urías	QMOLINA@EXAMPLE.ORG	3DpH}"Ml1S6V	Sit corporis quia aliquid tenetur odit alias earum.	2026-02-12 21:01:41	2026-02-12 21:01:41	Est	\N
+68	Carolina carrera hijo	CARRASCO.IAN@EXAMPLE.COM	?cpC@!r_w	Ducimus aut et doloremque perspiciatis mollitia voluptate totam.	2026-02-12 21:01:41	2026-02-12 21:01:41	Similique	\N
+69	Naia soriano	CARRILLO.ISAAC@EXAMPLE.COM	b+n'1{ns	Quibusdam dolorem rem quidem tempora quidem deserunt possimus.	2026-02-12 21:01:41	2026-02-12 21:01:41	At	\N
+70	Gael martín segundo	SLUJAN@EXAMPLE.ORG	EN{OQNY}N11ycrE-	Voluptas et voluptas illum quae enim qui aliquid ab.	2026-02-12 21:01:41	2026-02-12 21:01:41	Labore	\N
+\.
+
+
+--
+-- TOC entry 4980 (class 0 OID 0)
+-- Dependencies: 226
+-- Name: failed_jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.failed_jobs_id_seq', 1, false);
+
+
+--
+-- TOC entry 4981 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.jobs_id_seq', 1, false);
+
+
+--
+-- TOC entry 4982 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.migrations_id_seq', 6, true);
+
+
+--
+-- TOC entry 4983 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 1, false);
+
+
+--
+-- TOC entry 4984 (class 0 OID 0)
+-- Dependencies: 228
+-- Name: usuarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.usuarios_id_seq', 70, true);
+
+
+--
+-- TOC entry 4798 (class 2606 OID 16814)
+-- Name: cache_locks cache_locks_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cache_locks
+    ADD CONSTRAINT cache_locks_pkey PRIMARY KEY (key);
+
+
+--
+-- TOC entry 4795 (class 2606 OID 16806)
+-- Name: cache cache_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cache
+    ADD CONSTRAINT cache_pkey PRIMARY KEY (key);
+
+
+--
+-- TOC entry 4805 (class 2606 OID 16842)
+-- Name: failed_jobs failed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.failed_jobs
+    ADD CONSTRAINT failed_jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4807 (class 2606 OID 16844)
+-- Name: failed_jobs failed_jobs_uuid_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.failed_jobs
+    ADD CONSTRAINT failed_jobs_uuid_unique UNIQUE (uuid);
+
+
+--
+-- TOC entry 4803 (class 2606 OID 16832)
+-- Name: job_batches job_batches_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_batches
+    ADD CONSTRAINT job_batches_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4800 (class 2606 OID 16824)
+-- Name: jobs jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.jobs
+    ADD CONSTRAINT jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4782 (class 2606 OID 16772)
+-- Name: migrations migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.migrations
+    ADD CONSTRAINT migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4788 (class 2606 OID 16790)
+-- Name: password_reset_tokens password_reset_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.password_reset_tokens
+    ADD CONSTRAINT password_reset_tokens_pkey PRIMARY KEY (email);
+
+
+--
+-- TOC entry 4791 (class 2606 OID 16797)
+-- Name: sessions sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sessions
+    ADD CONSTRAINT sessions_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4784 (class 2606 OID 16783)
+-- Name: users users_email_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_email_unique UNIQUE (email);
+
+
+--
+-- TOC entry 4786 (class 2606 OID 16781)
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4809 (class 2606 OID 16855)
+-- Name: usuarios usuarios_correo_electronico_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.usuarios
+    ADD CONSTRAINT usuarios_correo_electronico_unique UNIQUE (correo_electronico);
+
+
+--
+-- TOC entry 4811 (class 2606 OID 16853)
+-- Name: usuarios usuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.usuarios
+    ADD CONSTRAINT usuarios_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4793 (class 1259 OID 16807)
+-- Name: cache_expiration_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX cache_expiration_index ON public.cache USING btree (expiration);
+
+
+--
+-- TOC entry 4796 (class 1259 OID 16815)
+-- Name: cache_locks_expiration_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX cache_locks_expiration_index ON public.cache_locks USING btree (expiration);
+
+
+--
+-- TOC entry 4801 (class 1259 OID 16825)
+-- Name: jobs_queue_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX jobs_queue_index ON public.jobs USING btree (queue);
+
+
+--
+-- TOC entry 4789 (class 1259 OID 16799)
+-- Name: sessions_last_activity_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX sessions_last_activity_index ON public.sessions USING btree (last_activity);
+
+
+--
+-- TOC entry 4792 (class 1259 OID 16798)
+-- Name: sessions_user_id_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX sessions_user_id_index ON public.sessions USING btree (user_id);
+
+
+-- Completed on 2026-02-12 16:08:51
+
+--
+-- PostgreSQL database dump complete
+--
+

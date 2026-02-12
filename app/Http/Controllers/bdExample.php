@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\windaq;
+use Faker\Factory as Faker;
 use Illuminate\Http\Request;
 
 class bdExample extends Controller
@@ -15,11 +16,9 @@ class bdExample extends Controller
 
     public function mostrarBd()
     {
-        $windaq = windaq::orderBy('id', 'desc')->get();
+        $windaq = windaq::orderBy('id', 'asc')->paginate(10);
 
         return view('bd', ['windaq' => $windaq]);
-
-
     }
 
 
@@ -85,6 +84,26 @@ class bdExample extends Controller
         $windaq->delete();
 
         return redirect('/bdMostrar');
+    }
+
+    /* El método crearDatosPrueba recibe un parámetro opcional $cantidad, que por defecto es 10, este método utiliza la biblioteca Faker para generar datos de prueba y crear registros en la base de datos, luego redirige al usuario a la ruta '/bdMostrar' para mostrar los datos creados */
+
+    public function crearDatosPrueba(int $cantidad = 10)
+    {
+        $faker = Faker::create('es_ES');
+
+        for ($i = 0; $i < $cantidad; $i++) {
+            $windaq = new windaq();
+            $windaq->nombre = $faker->name();
+            $windaq->correo_electronico = $faker->unique()->safeEmail();
+            $windaq->contrasena = $faker->password(8, 16);
+            $windaq->razon = $faker->sentence(6, true);
+            $windaq->campo_nuevo = $faker->word();
+            $windaq->save();
+        }
+
+        return redirect('/bdMostrar');
+
     }
 
 }
